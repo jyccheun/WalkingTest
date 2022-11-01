@@ -9,7 +9,7 @@ export default function App() {
   useEffect(() => {
     const subscription = Pedometer.watchStepCount(result => setCurrentStepCount(result.steps))
 
-    if (Platform === 'android') {
+    if (Platform.OS === 'android') {
       request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
     } else {
       request(PERMISSIONS.IOS.MOTION)

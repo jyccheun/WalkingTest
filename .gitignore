@@ -29,6 +29,7 @@ build/
 local.properties
 *.iml
 *.hprof
+index.android.bundle
 
 # node.js
 #
@@ -41,6 +42,7 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+*.jks
 
 # fastlane
 #

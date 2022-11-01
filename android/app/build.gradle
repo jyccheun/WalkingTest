@@ -228,6 +228,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('rocketplatform-app.jks')
+            storePassword '18215e94cb3847f28f697b1d3dbaf555'
+            keyAlias 'QGtpZ25vcmMvbWV0YXNwYWNlLWFwcA=='
+            keyPassword '1fabfe8a4ab6426796ed1ea83cf11305'
+        }
     }
     buildTypes {
         debug {
