@@ -1,4 +1,7 @@
 {
   "name": "WalkingTest",
-  "displayName": "WalkingTest"
+  "displayName": "WalkingTest",
+  "slug": "walkingtest",
+  "owner": "jyccheun",
+  "sdkVersion": "45.0.0"
 }

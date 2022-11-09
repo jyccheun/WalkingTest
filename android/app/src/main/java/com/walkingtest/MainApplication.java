@@ -16,6 +16,10 @@ import com.walkingtest.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import android.net.Uri;
+import expo.modules.updates.UpdatesController;
+import javax.annotation.Nullable;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -38,6 +42,24 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+        @Override
+        protected @Nullable String getJSBundleFile() {
+          if (BuildConfig.DEBUG) {
+            return super.getJSBundleFile();
+          } else {
+            return UpdatesController.getInstance().getLaunchAssetFile();
+          }
+        }
+
+        @Override
+        protected @Nullable String getBundleAssetName() {
+          if (BuildConfig.DEBUG) {
+            return super.getBundleAssetName();
+          } else {
+            return UpdatesController.getInstance().getBundleAssetName();
+          }
+        }
       });
 
   private final ReactNativeHost mNewArchitectureNativeHost =
@@ -58,6 +80,11 @@ public class MainApplication extends Application implements ReactApplication {
     // If you opted-in for the New Architecture, we enable the TurboModule system
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
+
+    if (!BuildConfig.DEBUG) {
+      UpdatesController.initialize(this);
+    }
+
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     ApplicationLifecycleDispatcher.onApplicationCreate(this);
   }
