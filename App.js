@@ -1,39 +1,24 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
-import { Pedometer } from 'expo-sensors';
-import { request, PERMISSIONS } from 'react-native-permissions';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import useStepTracker from './hooks/useStepTracker';
+import codePush from 'react-native-code-push'
 
-export default function App() {
-  const [currentStepCount, setCurrentStepCount] = useState(0)
-  const subscriptionRef = useRef()
+function App() {
+  const [enabled, setEnabled] = useState(false)
 
-  useEffect(() => {
-    subscriptionRef.current = Pedometer.watchStepCount(result => setCurrentStepCount(result.steps))
-
-    if (Platform.OS === 'android') {
-      request(PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION)
-    } else {
-      request(PERMISSIONS.IOS.MOTION)
-    }
-
-    return () => {
-      subscriptionRef.current.remove()
-    }
-  }, [])
-
-  const reset = () => {
-    setCurrentStepCount(0)
-    subscriptionRef.current.remove()
-    subscriptionRef.current = Pedometer.watchStepCount(result => setCurrentStepCount(result.steps))
-  }
+  const { steps, reset, updateTime } = useStepTracker(enabled)
 
   return (
     <View style={styles.container}>
-      <Text>Walk! And watch this go up: {currentStepCount}</Text>
+      <Text>Walk! And watch this go up: {steps}</Text>
+      <Text>Last updated: {updateTime.toUTCString()}</Text>
       <Button onPress={reset} title="Reset"/>
+      <Button onPress={() => setEnabled(v => !v)} title={enabled ? 'Disable' : 'Enable'} />
     </View>
   );
 }
+
+export default codePush(App)
 
 const styles = StyleSheet.create({
   container: {

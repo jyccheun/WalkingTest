@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WalkingTest</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">CiUs6ecu0KQxjs4iCOCv08jgqu2KhXg-WA5CK</string>
 </resources>
