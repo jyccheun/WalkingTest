@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import useStepTracker from './hooks/useStepTracker';
-import codePush from 'react-native-code-push'
 
-function App() {
+export default function App() {
   const [enabled, setEnabled] = useState(false)
 
   const { steps, reset, updateTime } = useStepTracker(enabled)
@@ -17,8 +16,6 @@ function App() {
     </View>
   );
 }
-
-export default codePush(App)
 
 const styles = StyleSheet.create({
   container: {
